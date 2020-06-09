@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>canvas 壓縮</title>
+</head>
+<body>
+    <input type="file" id="upload">
+
+    <script>
+    
+        const uploadEl = document.getElementById('upload');
+        
+        class UploadImage {
+            constructor() {
+                this.maxsize = 3 * 1024 * 1024;
+                this.maxsize_str = '3MB';
+                this.acceptedType = ['image/jpg','image/png','image/jpeg'];
+            }
+            isUploadedFileFail(file) {
+                const {type:fileType, size: fileSize} = file;
+                
+                if (!this.acceptedType.includes(fileType)) {
+                    alert(`不支持[${fileType}]文件類型!`);
+                    upload.value = "";
+                    return;
+                }
+
+                if (fileSize > this.maxsize) {
+                    alert(`文件超出${this.maxsize_str}`);
+                    upload.value = "";
+                    return;
+                }
+            }
+        }
+
+        class CompressImage {
+            constructor() {
+                this.maxW = 1024;
+                this.maxH = 1024;
+            }
+            convertImageToBase64(file,callback) {
+                let reader = new FileReader();
+
+                reader.addEventListener('load',function(e){
+                    const base64Image = e.target.result;
+                    callback && callback(base64Image);
+                    reader = null;
+                })
+                reader.readAsDataURL(file);
+            }
+            compress(base64Image,callback) {    
+
+                const image = new Image();
+                
+                image.addEventListener('load',(e) => {
+                    let ratio,
+                        needCompress = false;
+                    
+                    if (this.maxW < image.naturalWidth) {
+                        needCompress = true;
+                        ratio = image.naturalWidth / this.maxW;
+                        this.maxH = image.naturalHeight / ratio;
+                    }
+
+                    if (this.maxH < image.naturalHeight) {
+                        needCompress = true;
+                        ratio = image.naturalHeight / this.maxH;
+                        this.maxW = image.naturalWidth / ratio;
+                    }
+
+                    if (!needCompress) {
+                        this.maxW = image.naturalWidth;
+                        this.maxH = image.naturalHeight;
+                    }
+
+                    const canvas = document.createElement('canvas');
+                    canvas.setAttribute('id','compress');
+                    canvas.width = this.maxW;
+                    canvas.height = this.maxH;
+                    canvas.style.visibility = 'hidden';
+                    document.body.appendChild(canvas);
+
+                    const ctx = canvas.getContext('2d');
+                    ctx.clearRect(0,0,this.maxW,this.maxH);
+                    ctx.drawImage(image,0,0,this.maxW,this.maxH);
+
+                    const compressedImage = canvas.toDataURL('image/jpeg',0.9);
+                    callback && callback(compressedImage);
+                    const _image = new Image();
+                    _image.src = compressedImage;
+                    document.body.append(_image);
+                    
+                    canvas.remove();
+                })
+                image.src = base64Image;
+                document.body.appendChild(image);
+            }
+        }
+
+        uploadEl.addEventListener('change',function(e){
+            const [file] = e.target.files;
+           
+            if (!file) return;
+
+            const uploadFile = new UploadImage()
+
+            if (uploadFile.isUploadedFileFail(file)) return;
+            
+            const image = new CompressImage();
+            
+            image.convertImageToBase64(file,(base64Image) => image.compress(base64Image,uploadToServer));
+        })
+
+        function uploadToServer(compressImage) {
+            console.log('upload to server');
+        }
+
+    </script>
+</body>
+</html>

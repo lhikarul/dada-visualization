@@ -21,18 +21,40 @@
         const chartDom = document.getElementById('chart');
         const chart = echarts.init(chartDom);
         chart.setOption({
-           xAxis:{
-               type: 'category'
-           },
+            xAxis:[
+                {
+                    type: 'category',
+                    gridIndex: 0
+                },
+                {
+                    type: 'category',
+                    gridIndex: 1
+                }
+            ],
            yAxis:[
                {
                 min: 0,
-                max: 100
+                max: 100,
+                gridIndex: 0
                },
                {
                 splitLine: {
                     show: false
-                }
+                },
+                gridIndex: 0
+               },
+               {
+                   min: 0,
+                   max: 150,
+                   gridIndex: 1
+               }
+           ],
+           grid:[
+               {
+                bottom: '55%'
+               },
+               {
+                top: '55%'
                }
            ],
            dataset: {
@@ -46,13 +68,21 @@
                {
                 type: 'bar',
                 seriesLayoutBy: 'row',
-                yAxisIndex: 0
+                yAxisIndex: 0,
+                xAxisIndex: 0
                },
                {
                    type: 'line',
                    seriesLayoutBy: 'row',
+                   xAxisIndex: 0,
                    yAxisIndex: 1
-               }
+               },
+               {
+                type: 'bar',
+                seriesLayoutBy: 'row',
+                xAxisIndex: 1,
+                yAxisIndex: 2
+               },
            ]
         })
     </script>

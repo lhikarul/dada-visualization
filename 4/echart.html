@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>echart</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.8.0/echarts.min.js"></script>
+    <style>
+        #chart {
+            width: 800px;
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+    <div id="chart"></div>
+
+    <script>
+        const chartDom = document.getElementById('chart');
+        const chart = echarts.init(chartDom);
+        chart.setOption({
+            title: {
+                text: 'ECharts 入門'
+            },
+            xAxis: {
+                data:['food','clothes','drinks']
+            },
+            yAxis: {},
+            series: {
+                type: 'bar',
+                data: [100,120,90]
+            }
+        })
+    </script>
+</body>
+</html>

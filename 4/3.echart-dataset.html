@@ -30,28 +30,57 @@
                 ]
             },
             title: {
-                text: 'ECharts 多系列'
+                text: 'ECharts 多系列',
+                subtext: '資料視覺化'
             },
             xAxis: {
                 data:['season 1','season 2','season 3','season 4']
             },
             yAxis: {},
-            
+            legend: {
+                data:[{
+                    name: '分類',
+                    icon: 'circle',
+                    textStyle: {
+                        color: 'red'
+                    }
+                },'折線圖','柱狀圖'],
+                left: 300
+            },
+            toolbox: {
+                feature: {
+                    restore: {},
+                    saveAsImage: {},
+                    dataZoom: {
+                        yAxisIndex: false
+                    }
+                }
+            },
+            dataZoom: [
+            {
+                show: true,
+                start: 0,
+                end: 100
+            }
+            ],
             series: [
                 {
+                    name: '分類',
                     type: 'pie',
                     center:['65%',60],
                     radius: 35,
                     encode: {itemName: 3,value: 4}
                 },
-                {
+                {   
+                    name: '折線圖',
                     type: 'line',
                     encode: {
                         x:0,
                         y:1
                     }
                 },
-                {
+                {   
+                    name: '柱狀圖',
                     type: 'bar',
                     encode: {
                         x:0,

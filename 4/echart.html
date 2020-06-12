@@ -15,9 +15,10 @@
 <body>
     <div id="chart"></div>
 
+    <script src="customEchart.js"></script>
     <script>
         const chartDom = document.getElementById('chart');
-        const chart = echarts.init(chartDom);
+        const chart = echarts.init(chartDom,'purple-passion',{renderer: 'svg'});
         chart.setOption({
             title: {
                 text: 'ECharts 入門'

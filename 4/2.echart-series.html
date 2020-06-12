@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>echart</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.8.0/echarts.min.js"></script>
+    <style>
+        #chart {
+            width: 800px;
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+    <div id="chart"></div>
+
+    <script src="customEchart.js"></script>
+    <script>
+        const chartDom = document.getElementById('chart');
+        const chart = echarts.init(chartDom);
+        chart.setOption({
+            title: {
+                text: 'ECharts 多系列'
+            },
+            xAxis: {
+                data:['season1','season2','season3','season4']
+            },
+            yAxis: {},
+            series: [
+                {
+                    type: 'pie',
+                    center:['65%',60],
+                    radius: 35,
+                    data: [
+                        {
+                            name: '分類1',
+                            value: 50
+                        },
+                        {
+                            name: '分類2',
+                            value: 60
+                        },
+                        {
+                            name: '分類3',
+                            value: 70
+                        },
+                        {
+                            name: '分類4',
+                            value: 80
+                        }
+                    ]
+                },
+                {
+                    type: 'bar',
+                    data: [79,81,88,72]
+                },
+                {
+                    type: 'line',
+                    data: [100,112,96,123]
+                }
+            ]
+        })
+    </script>
+</body>
+</html>

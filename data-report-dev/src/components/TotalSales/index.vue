@@ -45,22 +45,6 @@ export default {
     margin-top: 3px;
     font-size: 12px;
     color: #666;
-    .increase {
-      margin: 0 0 3px 5px;
-      border-width: 3px;
-      border-color: transparent transparent red transparent;
-      border-style: solid;
-      width: 0;
-      height: 0;
-    }
-    .decrease {
-      margin: 3px 0 0 5px;
-      border-width: 3px;
-      border-color: green transparent transparent transparent;
-      border-style: solid;
-      width: 0;
-      height: 0;
-    }
   }
 }
 </style>

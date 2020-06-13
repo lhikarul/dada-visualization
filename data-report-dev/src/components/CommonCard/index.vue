@@ -22,6 +22,30 @@ export default {
 }
 </script>
 
+<style lang="scss">
+  .emphasis {
+    margin-left: 5px;
+    color: #333;
+    font-weight: 700;
+  }
+  .increase {
+      margin: 0 0 3px 5px;
+      border-width: 3px;
+      border-color: transparent transparent red transparent;
+      border-style: solid;
+      width: 0;
+      height: 0;
+    }
+  .decrease {
+      margin: 3px 0 0 5px;
+      border-width: 3px;
+      border-color: green transparent transparent transparent;
+      border-style: solid;
+      width: 0;
+      height: 0;
+    }
+</style>
+
 <style lang="scss" scoped>
  .title {
    font-size: 12px;
@@ -35,7 +59,6 @@ export default {
  }
  .chart {
    height: 50px;
-   background: red;
  }
  .line {
    margin: 10px 0;

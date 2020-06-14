@@ -1,28 +1,80 @@
 <template>
-  <ve-line :data="data"/>
+  <div class="sales-view">
+    <el-card shadow="hover">
+      <template v-slot:header>
+        <div class="menu-wrapper">
+          <el-menu mode="horizontal" :default-active="activeIndex" @select="onMenuSelect">
+            <el-menu-item index="1">銷售額</el-menu-item>
+            <el-menu-item index="2">訪問量</el-menu-item>
+          </el-menu>
+          <div class="menu-right">
+            <el-radio-group v-model="radioSelect" size="small">
+              <el-radio-button label="今日"></el-radio-button>
+              <el-radio-button label="本周"></el-radio-button>
+              <el-radio-button label="本月"></el-radio-button>
+              <el-radio-button label="今年"></el-radio-button>
+            </el-radio-group>
+            <el-date-picker
+              type="daterange"
+              v-model="date"
+              range-separator="至"
+              start-placeholder="開始日期"
+              end-placeholder="結束日期"
+              size="small"
+              :picker-options="pickerOptions"
+              ></el-date-picker>
+          </div>
+        </div>
+      </template>
+      <template>222</template>
+    </el-card>
+  </div>
 </template>
 
 <script>
-/* eslint-disable */
 export default {
   data () {
     return {
-      data: {
-        columns: ['日期', '访问用户', '下单用户'],
-        rows: [
-          { '日期': '2018-05-22', '访问用户': 32371, '下单用户': 19810 },
-          { '日期': '2018-05-23', '访问用户': 12328, '下单用户': 4398 },
-          { '日期': '2018-05-24', '访问用户': 92381, '下单用户': 52910 }
+      activeIndex: '1',
+      radioSelect: '今日',
+      date: null,
+      pickerOptions: {
+        shortcuts: [
+          {
+            text: '最近一周',
+            onClick (picker) {
+
+            }
+          },
+          {
+            text: '最近一個月',
+            onClick (picker) {
+
+            }
+          },
+          {
+            text: '最近三個月',
+            onClick (picker) {
+
+            }
+          }
         ]
       }
+    }
+  },
+  methods: {
+    onMenuSelect (idx) {
+      this.activeIndex = idx
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.echarts {
-  width: 100%;
-  height: 100%;
+.sales-view {
+  margin-top: 20px;
+  .menu-wrapper {
+    display: flex;
+  }
 }
 </style>
